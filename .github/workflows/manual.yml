@@ -3,6 +3,9 @@ on: workflow_dispatch
 jobs:
   rest-info-lib:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: checkout the latest changes
         uses: actions/checkout@v4
