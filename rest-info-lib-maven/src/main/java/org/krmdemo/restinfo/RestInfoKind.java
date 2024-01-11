@@ -1,14 +1,13 @@
 package org.krmdemo.restinfo;
 
-import org.krmdemo.restinfo.util.ManifestResource;
-
-import java.io.IOException;
-import java.net.URL;
 import java.util.*;
 
 import static java.util.Collections.*;
 import static java.util.EnumSet.*;
 
+/**
+ * This enumeration represents the kind of information about running application origin.
+ */
 public enum RestInfoKind {
 
     /**
@@ -40,18 +39,4 @@ public enum RestInfoKind {
      * This set indicates that none of information is requested
      */
     public static final Set<RestInfoKind> NONE = unmodifiableSet(noneOf(RestInfoKind.class));
-
-    /**
-     * JVM entry-point to check the content of jar-manifest
-     *
-     * @param args command-line arguments
-     */
-    public static void main(String[] args) {
-        Optional<ManifestResource> mf = ManifestResource.restInfoManifest();
-        if (mf.isEmpty()) {
-            System.err.println("no manifest is available");
-            System.exit(1);
-        }
-        System.out.println(mf);
-    }
 }

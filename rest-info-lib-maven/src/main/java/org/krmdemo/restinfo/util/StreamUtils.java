@@ -6,6 +6,9 @@ import java.util.stream.*;
 
 import static java.lang.String.format;
 
+/**
+ * Utility-class to work with java-streams.
+ */
 public class StreamUtils {
 
     /**
