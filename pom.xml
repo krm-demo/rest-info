@@ -3,315 +3,171 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.krmdemo.app</groupId>
+  <groupId>org.krmdemo.restinfo</groupId>
+  <artifactId>restinfo-parent-pom</artifactId>
   <version>1.0</version>
-  <artifactId>hello-app</artifactId>
+  <packaging>pom</packaging>
 
   <name>${project.artifactId}</name>
-  <description>'Hello' Command-Line Application</description>
+  <description>'rest-info' parent project</description>
+  <url>https://github.com/krm-demo/rest-info</url>
+
+  <organization>
+    <name>krm-demo/rest-info</name>
+    <url>https://github.com/krm-demo/rest-info</url>
+  </organization>
 
   <properties>
     <java.version>21</java.version>
-    <spring.boot.version>3.2.1</spring.boot.version>
+    <lombock.version>1.18.30</lombock.version>
+    <maven.compiler.plugin.version>3.12.1</maven.compiler.plugin.version>
     <maven.compiler.release>${java.version}</maven.compiler.release>
-    <project.artifact.coords>${project.groupId}:${project.artifactId}:${project.version}</project.artifact.coords>
-    <maven.plugin.validation>VERBOSE</maven.plugin.validation>
+    <maven.resources.plugin.version>3.3.0</maven.resources.plugin.version>
+    <maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <!--
-        It's very important to keep 2 properties bellow as is, otherwise -  extracting the real timestamp
-        of the maven-build will be very unstable and of unpredictable format. (it's about maven legacy)
-    -->
-    <application.build.timestamp>${maven.build.timestamp}</application.build.timestamp>
-    <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</maven.build.timestamp.format>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter</artifactId>
-      <version>${spring.boot.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>info.picocli</groupId>
-      <artifactId>picocli-spring-boot-starter</artifactId>
-      <version>4.7.5</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.30</version>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>2.0.9</version>
-    </dependency>
+  <dependencies/>
 
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <version>${spring.boot.version}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.mockito</groupId>
-          <artifactId>mockito-core</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.15.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>5.8.0</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>net.bytebuddy</groupId>
-      <artifactId>byte-buddy</artifactId>
-      <version>1.14.11</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>net.bytebuddy</groupId>
-      <artifactId>byte-buddy-agent</artifactId>
-      <version>1.14.11</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombock.version}</version>
+        <optional>true</optional>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <build>
-    <resources>
-      <resource>
-        <directory>${basedir}/src/main/resources</directory>
-        <filtering>true</filtering>
-        <includes>
-          <include>**/application*.yml</include>
-          <include>**/application*.yaml</include>
-          <include>**/application*.properties</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>${basedir}/src/main/resources</directory>
-        <excludes>
-          <exclude>**/application*.yml</exclude>
-          <exclude>**/application*.yaml</exclude>
-          <exclude>**/application*.properties</exclude>
-        </excludes>
-      </resource>
-    </resources>
-
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.12.1</version>
-        <configuration>
-          <compilerArgument>-proc:full</compilerArgument>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>3.3.1</version>
-        <configuration>
-          <propertiesEncoding>${project.build.sourceEncoding}</propertiesEncoding>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>${spring.boot.version}</version>
-        <configuration>
-          <excludes>
-            <exclude>
-              <groupId>org.projectlombok</groupId>
-              <artifactId>lombok</artifactId>
-            </exclude>
-          </excludes>
-          <additionalProperties>
-            <description>${project.description}</description>
-            <java.source>${maven.compiler.release}</java.source>
-            <java.target>${maven.compiler.release}</java.target>
-            <tool.name>maven</tool.name>
-            <tool.version>${maven.version}</tool.version>
-            <spring.boot.version>${spring.boot.version}</spring.boot.version>
-          </additionalProperties>
-        </configuration>
-        <executions>
-          <execution>
-            <id>build-info</id>
-            <goals>
-              <goal>build-info</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>repackage</id>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-help-plugin</artifactId>
-        <version>3.4.0</version>
-        <executions>
-          <execution>
-            <id>retrieve-system-info</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>system</goal>
-            </goals>
-            <configuration>
-              <output>${project.build.outputDirectory}/maven-system-info.txt</output>
-            </configuration>
-          </execution>
-          <execution>
-            <id>retrieve-effective-pom</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>effective-pom</goal>
-            </goals>
-            <configuration>
-              <output>${project.build.outputDirectory}/maven-effective-pom.xml</output>
-              <verbose>true</verbose>
-            </configuration>
-          </execution>
-          <execution>
-            <id>retrieve-effective-settings</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>effective-settings</goal>
-            </goals>
-            <configuration>
-              <output>${project.build.outputDirectory}/maven-effective-settings.xml</output>
-              <showPasswords>true</showPasswords>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>3.1.1</version>
-        <executions>
-          <execution>
-            <id>retrieve-docker-info</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>docker</executable>
-              <arguments>
-                <argument>system</argument>
-                <argument>info</argument>
-              </arguments>
-              <outputFile>${project.build.outputDirectory}/docker-system-info.txt</outputFile>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>io.github.git-commit-id</groupId>
-        <artifactId>git-commit-id-maven-plugin</artifactId>
-        <version>7.0.0</version>
-        <executions>
-          <execution>
-            <id>retrieve-git-info</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>revision</goal>
-            </goals>
-            <configuration>
-              <generateGitPropertiesFile>true</generateGitPropertiesFile>
-              <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
-              <commitIdGenerationMode>full</commitIdGenerationMode>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.11</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>report</id>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>report</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.gmavenplus</groupId>
-        <artifactId>gmavenplus-plugin</artifactId>
-        <version>3.0.2</version>
-        <executions>
-          <execution>
-            <id>jacoco-report-log</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>execute</goal>
-            </goals>
-            <configuration>
-              <scripts>
-                <script><![CDATA[
-                  log.debug("inline-script of '${mojoExecution.executionId}' before")
-                ]]></script>
-                <script>${basedir}/src/scripts/maven-${mojoExecution.executionId}-helper.groovy</script>
-                <script><![CDATA[
-                  log.debug("inline-script of '${mojoExecution.executionId}' after")
-                ]]></script>
-              </scripts>
-            </configuration>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.groovy</groupId>
-            <artifactId>groovy</artifactId>
-            <version>4.0.17</version>
-          </dependency>
-          <dependency>
-            <groupId>org.apache.groovy</groupId>
-            <artifactId>groovy-ant</artifactId>
-            <version>4.0.17</version>
-          </dependency>
-          <dependency>
-            <groupId>org.apache.groovy</groupId>
-            <artifactId>groovy-groovysh</artifactId>
-            <version>4.0.17</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-    </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven.compiler.plugin.version}</version>
+          <configuration>
+            <release>${maven.compiler.release}</release>
+            <compilerArgument>-proc:full</compilerArgument>
+            <annotationProcessorPaths>
+              <path>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+              </path>
+            </annotationProcessorPaths>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>${maven.resources.plugin.version}</version>
+          <configuration>
+            <propertiesEncoding>${project.build.sourceEncoding}</propertiesEncoding>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${maven.jar.plugin.version}</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <addClasspath>false</addClasspath>
+                <addBuildEnvironmentEntries>true</addBuildEnvironmentEntries>
+                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              </manifest>
+              <manifestEntries>
+                <Project-Group>${project.groupId}</Project-Group>
+                <Project-Org-Url>${project.organization.url}</Project-Org-Url>
+                <Project-Url>${project.url}</Project-Url>
+                <Env-Path>${env.PATH}</Env-Path>
+                <Env-Pwd>${env.PWD}</Env-Pwd>
+                <Implementation-Build-Date>${maven.build.timestamp}</Implementation-Build-Date>
+              </manifestEntries>
+            </archive>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
 
+  <profiles>
+    <profile>
+      <id>git-hub</id>
+      <activation>
+        <property>
+          <name>env.GITHUB_SERVER_URL</name>
+        </property>
+      </activation>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-jar-plugin</artifactId>
+              <version>${maven.jar.plugin.version}</version>
+              <configuration>
+                <archive>
+                  <manifestEntries>
+                    <Project-Build-Url>${env.GITHUB_SERVER_URL}/${env.GITHUB_REPOSITORY}/actions/runs/${env.GITHUB_RUN_ID}</Project-Build-Url>
+                    <Project-Commit-Url>${env.GITHUB_SERVER_URL}/${env.GITHUB_REPOSITORY}/commit/${env.GITHUB_SHA}</Project-Commit-Url>
+                  </manifestEntries>
+                  <manifestSections>
+                    <manifestSection>
+                      <name>git-hub</name>
+                      <manifestEntries>
+                        <Github-Server-Url>${env.GITHUB_SERVER_URL}</Github-Server-Url>
+                        <Github-Server-Repository>${env.GITHUB_REPOSITORY}</Github-Server-Repository>
+                        <Github-Sha>${env.GITHUB_SHA}</Github-Sha>
+                        <Github-Ref>${env.GITHUB_REF}</Github-Ref>
+                        <Github-Ref-Name>${env.GITHUB_REF_NAME}</Github-Ref-Name>
+                        <Github-Ref-Type>${env.GITHUB_REF_TYPE}</Github-Ref-Type>
+                        <Github-Head-Ref>${env.GITHUB_HEAD_REF}</Github-Head-Ref>
+                        <Github-Run-Id>${env.GITHUB_RUN_ID}</Github-Run-Id>
+                        <Github-Run-Attempt>${env.GITHUB_RUN_ATTEMPT}</Github-Run-Attempt>
+                        <Github-Run-Number>${env.GITHUB_RUN_NUMBER}</Github-Run-Number>
+                        <Github-Workflow>${env.GITHUB_WORKFLOW}</Github-Workflow>
+                        <Github-Workflow-Event>${env.GITHUB_EVENT_NAME}</Github-Workflow-Event>
+                        <Github-Workflow-Job>${env.GITHUB_JOB}</Github-Workflow-Job>
+                        <Github-Workflow-Ref>${env.GITHUB_WORKFLOW_REF}</Github-Workflow-Ref>
+                        <Github-Workflow-Sha>${env.GITHUB_WORKFLOW_SHA}</Github-Workflow-Sha>
+                      </manifestEntries>
+                    </manifestSection>
+                  </manifestSections>
+                </archive>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+  </profiles>
+
+  <modules>
+    <module>rest-info-lib-maven</module>
+  </modules>
+
 </project>
+
+<!--
+//    CI=true
+//
+//    GITHUB_ACTOR ('krm-demo')
+//    GITHUB_TRIGGERING_ACTOR ('krm-demo')
+//    GITHUB_REPOSITORY_OWNER_ID ('149853618')
+//
+//BITBUCKET_BRANCH=master
+//BITBUCKET_BUILD_NUMBER=71
+//BITBUCKET_COMMIT=8f94bf48cfcffca4b6c8107c558dfe11b453c23a
+//BITBUCKET_DEPLOYMENT_ENVIRONMENT=hello-gradle
+//BITBUCKET_GIT_HTTP_ORIGIN=http://bitbucket.org/aleksey-kurmanov/docker-pipelines
+//BITBUCKET_GIT_SSH_ORIGIN=git@bitbucket.org:aleksey-kurmanov/docker-pipelines.git
+//BITBUCKET_REPO_FULL_NAME=aleksey-kurmanov/docker-pipelines
+//BITBUCKET_REPO_OWNER=aleksey-kurmanov
+//BITBUCKET_REPO_OWNER_UUID={afc0fd5b-5907-44ef-9468-3f8cae7708c3}
+//BITBUCKET_REPO_SLUG=docker-pipelines
+//BITBUCKET_STEP_RUN_NUMBER=1
+//BITBUCKET_STEP_TRIGGERER_UUID={afc0fd5b-5907-44ef-9468-3f8cae7708c3}
+//BITBUCKET_STEP_UUID={7f3bb13c-166f-4d61-8b2b-84e9b021877a}
+-->

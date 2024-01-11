@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+<!--  <include resource="logback-defaults.xml"/>-->
+<!--  <include resource="logback-console-appender.xml" />-->
+<!--  <root level="INFO">-->
+<!--    <appender-ref ref="CONSOLE" />-->
+<!--  </root>-->
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -%kvp- %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <root level="WARN">
+    <appender-ref ref="STDOUT" />
+  </root>
+  <logger name="org.krmdemo.restinfo" level="INFO"/>
+
+</configuration>
