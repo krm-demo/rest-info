@@ -20,6 +20,8 @@
   <properties>
     <java.version>21</java.version>
     <lombock.version>1.18.30</lombock.version>
+    <org.slf4j.version>2.0.9</org.slf4j.version>
+    <ch.qos.logback.version>1.4.14</ch.qos.logback.version>
     <maven.compiler.plugin.version>3.12.1</maven.compiler.plugin.version>
     <maven.compiler.release>${java.version}</maven.compiler.release>
     <maven.resources.plugin.version>3.3.0</maven.resources.plugin.version>
@@ -36,6 +38,16 @@
         <artifactId>lombok</artifactId>
         <version>${lombock.version}</version>
         <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${org.slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${ch.qos.logback.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

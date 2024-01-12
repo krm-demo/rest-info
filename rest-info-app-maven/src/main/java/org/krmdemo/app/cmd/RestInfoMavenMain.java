@@ -10,6 +10,6 @@ public class RestInfoMavenMain {
      * @param args command-line arguments
      */
     public static void main(String[] args) {
-        System.out.println();
+        log.info("Hello from {}!", RestInfoMavenMain.class.getSimpleName());
     }
 }
