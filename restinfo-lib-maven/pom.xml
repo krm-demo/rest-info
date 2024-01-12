@@ -10,7 +10,7 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>rest-info-lib-maven</artifactId>
+  <artifactId>restinfo-lib-maven</artifactId>
   <packaging>jar</packaging>
 
   <name>${project.artifactId}</name>

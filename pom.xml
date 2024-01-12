@@ -163,8 +163,8 @@
   </profiles>
 
   <modules>
-    <module>rest-info-lib-maven</module>
-    <module>rest-info-app-maven</module>
+    <module>restinfo-lib-maven</module>
+    <module>restinfo-app-maven</module>
   </modules>
 
 </project>

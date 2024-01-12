@@ -10,7 +10,7 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>rest-info-app-maven</artifactId>
+  <artifactId>restinfo-app-maven</artifactId>
 <!--  <version>1.0</version>-->
   <packaging>jar</packaging>
 
@@ -38,7 +38,7 @@
 
     <dependency>
       <groupId>org.krmdemo.restinfo</groupId>
-      <artifactId>rest-info-lib-maven</artifactId>
+      <artifactId>restinfo-lib-maven</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -96,6 +96,7 @@
               <goal>shade</goal>
             </goals>
             <configuration>
+<!--              <createSourcesJar>true</createSourcesJar>-->
               <createDependencyReducedPom>false</createDependencyReducedPom>
               <outputFile>${project.build.directory}/${project.build.finalName}-shaded.jar</outputFile>
               <transformers>
