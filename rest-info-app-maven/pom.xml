@@ -96,6 +96,7 @@
               <goal>shade</goal>
             </goals>
             <configuration>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
               <outputFile>${project.build.directory}/${project.build.finalName}-shaded.jar</outputFile>
               <transformers>
                 <transformer
