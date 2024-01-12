@@ -78,12 +78,12 @@
                 <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
               </manifest>
               <manifestEntries>
+                <Build-Date>${maven.build.timestamp}</Build-Date>
                 <Project-Group>${project.groupId}</Project-Group>
                 <Project-Org-Url>${project.organization.url}</Project-Org-Url>
                 <Project-Url>${project.url}</Project-Url>
                 <Env-Path>${env.PATH}</Env-Path>
                 <Env-Pwd>${env.PWD}</Env-Pwd>
-                <Implementation-Build-Date>${maven.build.timestamp}</Implementation-Build-Date>
               </manifestEntries>
             </archive>
           </configuration>
@@ -152,6 +152,7 @@
 
   <modules>
     <module>rest-info-lib-maven</module>
+    <module>rest-info-app-maven</module>
   </modules>
 
 </project>

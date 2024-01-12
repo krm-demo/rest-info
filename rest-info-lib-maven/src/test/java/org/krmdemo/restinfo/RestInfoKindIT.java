@@ -21,6 +21,7 @@ public class RestInfoKindIT {
         Optional<ManifestResource> mf = ManifestResource.restInfoManifest();
         assertThat(mf).isNotEmpty();
         log.info("ManifestResource.restInfoManifest() returns:\n\n" + mf.get());
+        log.info("the raw of rest-info manifest is:\n\n" + mf.get().getContent());
         // TODO: check values for 'git-hub'
     }
 }

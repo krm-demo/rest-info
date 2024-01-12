@@ -10,12 +10,13 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>rest-info-lib-maven</artifactId>
+  <artifactId>rest-info-app-maven</artifactId>
+<!--  <version>1.0</version>-->
   <packaging>jar</packaging>
 
   <name>${project.artifactId}</name>
-  <description>'rest-info' library that is built and deployed with 'maven'</description>
-  <url>https://github.com/krm-demo/rest-info/tree/main/rest-info-lib-maven</url>
+  <description>'rest-info' application that is built with 'maven'</description>
+  <url>https://github.com/krm-demo/rest-info/tree/main/rest-info-app-maven</url>
 
   <properties>
   </properties>
@@ -30,20 +31,11 @@
       <artifactId>slf4j-api</artifactId>
       <version>2.0.9</version>
     </dependency>
+
     <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.15.1</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.15.3</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-jsr310</artifactId>
-      <version>2.15.3</version>
+      <groupId>org.krmdemo.restinfo</groupId>
+      <artifactId>rest-info-lib-maven</artifactId>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>
@@ -67,21 +59,6 @@
   </dependencies>
 
   <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.2.3</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
   </build>
 
 </project>
