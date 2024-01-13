@@ -44,6 +44,11 @@
       <artifactId>jackson-datatype-jsr310</artifactId>
       <version>2.15.3</version>
     </dependency>
+    <dependency>
+      <groupId>org.snakeyaml</groupId>
+      <artifactId>snakeyaml-engine</artifactId>
+      <version>2.7</version>
+    </dependency>
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -68,8 +73,27 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.2.5</version>
+        <configuration>
+          <excludedGroups>integration-test-tag</excludedGroups>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.2.3</version>
+        <version>3.2.5</version>
+        <configuration>
+          <groups>integration-test-tag</groups>
+          <!--
+            in order to  run and debug integration tests in IDEA IntelliJ
+            - either following parameters should be un-commented
+            - or provided via command-line arguments: "-DforkCount=0 -DreuseForks=false"
+          -->
+<!--          <useSystemClassLoader>false</useSystemClassLoader>-->
+<!--          <forkCount>0</forkCount>-->
+<!--          <reuseForks>false</reuseForks>-->
+        </configuration>
         <executions>
           <execution>
             <goals>

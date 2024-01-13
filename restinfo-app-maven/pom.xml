@@ -62,19 +62,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>3.6.0</version>
-        <configuration>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-          <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <addBuildEnvironmentEntries>true</addBuildEnvironmentEntries>
-              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-              <mainClass>${app.cmd.main.class}</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
         <executions>
           <execution>
             <id>assemble-all</id>
@@ -82,6 +69,20 @@
             <goals>
               <goal>single</goal>
             </goals>
+            <configuration>
+              <skipAssembly>true</skipAssembly>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+              <archive>
+                <manifest>
+                  <addClasspath>true</addClasspath>
+                  <addBuildEnvironmentEntries>true</addBuildEnvironmentEntries>
+                  <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                  <mainClass>${app.cmd.main.class}</mainClass>
+                </manifest>
+              </archive>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -97,6 +98,7 @@
             </goals>
             <configuration>
 <!--              <createSourcesJar>true</createSourcesJar>-->
+              <skip>true</skip>
               <createDependencyReducedPom>false</createDependencyReducedPom>
               <outputFile>${project.build.directory}/${project.build.finalName}-shaded.jar</outputFile>
               <transformers>

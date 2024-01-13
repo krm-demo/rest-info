@@ -26,6 +26,7 @@
     <maven.compiler.release>${java.version}</maven.compiler.release>
     <maven.resources.plugin.version>3.3.0</maven.resources.plugin.version>
     <maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
+    <maven.plugin.validation>VERBOSE</maven.plugin.validation>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 

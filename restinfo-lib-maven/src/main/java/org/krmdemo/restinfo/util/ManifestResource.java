@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 
+import org.snakeyaml.engine.v2.api.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -83,6 +85,15 @@ public class ManifestResource extends ContentResource {
             log.atError().log("error dumpins as JSON", ex);
             return "<< " + ex.getMessage() + ">> " + this;
         }
+    }
+
+    public String asYAML() {
+        Dump dump = new Dump(DumpSettings.builder()
+            .setExplicitEnd(true)
+            .setDumpComments(true)
+            .setCanonical(true)
+            .build());
+        return dump.dumpToString(this);
     }
 
     @Override

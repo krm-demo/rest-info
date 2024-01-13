@@ -5,4 +5,5 @@ open module org.krmdemo.restinfo {
     requires com.fasterxml.jackson.datatype.jsr310;
     requires org.apache.commons.io;
     requires lombok;
+    requires org.snakeyaml.engine.v2;
 }
