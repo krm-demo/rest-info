@@ -10,6 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 
 import org.snakeyaml.engine.v2.api.*;
+import org.snakeyaml.engine.v2.common.FlowStyle;
+import org.snakeyaml.engine.v2.nodes.MappingNode;
+import org.snakeyaml.engine.v2.nodes.Node;
+import org.snakeyaml.engine.v2.nodes.NodeTuple;
+import org.snakeyaml.engine.v2.nodes.ScalarNode;
+import org.snakeyaml.engine.v2.nodes.Tag;
+import org.snakeyaml.engine.v2.representer.BaseRepresenter;
+import org.snakeyaml.engine.v2.representer.StandardRepresenter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -88,12 +96,31 @@ public class ManifestResource extends ContentResource {
     }
 
     public String asYAML() {
-        Dump dump = new Dump(DumpSettings.builder()
+        DumpSettings dumpSettings = DumpSettings.builder()
             .setExplicitEnd(true)
             .setDumpComments(true)
             .setCanonical(true)
-            .build());
+            .setMultiLineFlow(true)
+            .build();
+        Dump dump = new Dump(dumpSettings, representer(dumpSettings));
         return dump.dumpToString(this);
+    }
+
+    private BaseRepresenter representer(DumpSettings dumpSettings) {
+        return new StandardRepresenter(dumpSettings) {{
+            this.representers.put(ManifestResource.class, data -> {
+                List<NodeTuple> tuples = new ArrayList<>();
+                tuples.add(new NodeTuple(
+                    representScalar(Tag.STR, "prop-one"),
+                    representScalar(Tag.STR, "value-one")
+                ));
+                tuples.add(new NodeTuple(
+                    representScalar(Tag.STR, "prop-two"),
+                    representScalar(Tag.STR, "value-two")
+                ));
+                return new MappingNode(new Tag(ManifestResource.class), tuples, FlowStyle.BLOCK);
+            });
+        }};
     }
 
     @Override

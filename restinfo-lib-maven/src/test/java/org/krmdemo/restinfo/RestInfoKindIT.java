@@ -27,7 +27,7 @@ public class RestInfoKindIT {
         assertThat(mf).isNotEmpty();
         log.info("rest-info manifest as JSON:\n\n" + mf.get());
         log.info("the raw rest-info manifest is:\n\n" + mf.get().getContent());
-        //log.info("rest-info manifest as YAML:\n\n" + mf.get().asYAML());
+        log.info("rest-info manifest as YAML:\n\n" + mf.get().asYAML());
         // TODO: check values for 'git-hub'
     }
 }
