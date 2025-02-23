@@ -1,0 +1,11 @@
+<server>
+	<id>${server}</id>
+	<username>boN2Aouu</username>
+	<password>GGx6zEKuhQgmpyRTki9CwT7O0h9OcSju8oaHSDuX2cIY</password>
+</server>
+
+<server>
+	<id>${server}</id>
+	<username>bTTknQKz</username>
+	<password>UmAdV8yvB7iTsoLmRrY6gII24cdBsUdJhYqGLoq8YSYU</password>
+</server>

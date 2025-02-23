@@ -99,7 +99,7 @@ public class ManifestResource extends ContentResource {
         DumpSettings dumpSettings = DumpSettings.builder()
             .setExplicitEnd(true)
             .setDumpComments(true)
-            .setCanonical(true)
+            //.setCanonical(true)
             .setMultiLineFlow(true)
             .build();
         Dump dump = new Dump(dumpSettings, representer(dumpSettings));
